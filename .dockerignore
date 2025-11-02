@@ -1,0 +1,6 @@
+**/**
+!helloapp/**
+!requirements.txt
+!run.sh
+!build.sh
+!test.sh

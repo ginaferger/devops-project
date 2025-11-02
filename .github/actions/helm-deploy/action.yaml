@@ -1,0 +1,42 @@
+name: Helm Deploy Action
+description: A GitHub Action to deploy Helm charts to a Kubernetes cluster
+
+inputs:
+  values-file:
+    description: 'Path to the Helm values file'
+    required: true
+  namespace:
+    description: 'Kubernetes namespace to deploy to'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+
+    - name: Create namespace
+      shell: bash
+      env:
+        NAMESPACE: ${{ inputs.namespace }}
+      run: |
+        kubectl create namespace $NAMESPACE
+
+    - name: Deploy with Helm
+      shell: bash
+      env:
+        NAMESPACE: ${{ inputs.namespace }}
+        VALUES_FILE: ${{ inputs.values-file }}
+      run: |
+        helm upgrade --install helloapp ./helloapp-charts \
+          --namespace $NAMESPACE \
+          --create-namespace \
+          -f ./helloapp-charts/${VALUES_FILE}
+    
+    - name: Verify deployment
+      shell: bash
+      env:
+        NAMESPACE: ${{ inputs.namespace }}
+      run: |
+        kubectl get pods -n $NAMESPACE
+        helm list -n $NAMESPACE
