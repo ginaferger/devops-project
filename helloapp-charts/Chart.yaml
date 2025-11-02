@@ -1,0 +1,4 @@
+apiVersion: v1
+name: helloapp
+description: Helm chart for the helloapp Flask application
+version: 1.0.0

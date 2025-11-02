@@ -1,0 +1,11 @@
+image:
+  repository: csizmaziakiki/helloapp
+  tag: latest
+  pullPolicy: IfNotPresent
+deployment:
+  containerPort: 8080
+service:
+  name: helloapp-service
+  type: NodePort
+  port: 80
+  protocol: TCP

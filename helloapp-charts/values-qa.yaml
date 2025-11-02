@@ -1,0 +1,4 @@
+replicaCount: 1
+namespace: "qa"
+labels:
+  environment: "qa"
