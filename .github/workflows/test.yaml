@@ -2,7 +2,7 @@ name: Test the application before deployment
 
 on:
   pull_request: 
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   test:
