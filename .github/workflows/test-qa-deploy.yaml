@@ -1,4 +1,7 @@
-name: Test the application before deployment
+name: Test the application and deploy to the Minikube QA environment
+
+permissions:
+  contents: read
 
 on:
   pull_request: 
@@ -7,9 +10,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
