@@ -24,3 +24,18 @@ jobs:
 
       - name: Run tests
         run: ./test.sh
+
+      - name: Setup and start Minikube
+        uses: ./.github/actions/minikube-setup
+
+      - name: Build and validate Docker image
+        run: |
+          eval $(minikube docker-env)
+          docker build -t csizmaziakiki/helloapp:latest .
+          docker run csizmaziakiki/helloapp:latest /bin/sh -c "ls -al"
+      
+      - name: Deploy to QA Minikube with Helm
+        uses: ./.github/actions/helm-deploy
+        with:
+          values-file: 'values-qa.yaml'
+          namespace: 'qa'
