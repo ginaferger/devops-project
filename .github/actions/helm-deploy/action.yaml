@@ -31,6 +31,8 @@ runs:
         helm upgrade --install helloapp ./helloapp-charts \
           --namespace $NAMESPACE \
           --create-namespace \
+          --wait \
+          --timeout 5m \
           -f ./helloapp-charts/${VALUES_FILE}
     
     - name: Verify deployment
