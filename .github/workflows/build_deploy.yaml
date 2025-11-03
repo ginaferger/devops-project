@@ -14,15 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Build Docker image
-        run: |
-          eval $(minikube docker-env)
-          docker build -t csizmaziakiki/helloapp:latest .
-
-      - name: Validate Docker /helloapp contents
-        run: |
-          docker run csizmaziakiki/helloapp:latest /bin/sh -c "ls -al"
-
       - name: Install kubectl
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -43,6 +34,15 @@ jobs:
         run: |
           minikube start --driver=docker --wait=all
           kubectl get nodes
+
+      - name: Build Docker image
+        run: |
+          eval $(minikube docker-env)
+          docker build -t csizmaziakiki/helloapp:latest .
+
+      - name: Validate Docker /helloapp contents
+        run: |
+          docker run csizmaziakiki/helloapp:latest /bin/sh -c "ls -al"
       
       - name: Deploy to QA Minikube with Helm
         uses: ./.github/actions/helm-deploy
