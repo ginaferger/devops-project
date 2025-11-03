@@ -16,6 +16,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          eval $(minikube docker-env)
           docker build -t csizmaziakiki/helloapp:latest .
 
       - name: Validate Docker /helloapp contents
