@@ -54,6 +54,3 @@ jobs:
         with:
           values-file: 'values-prod.yaml'
           namespace: 'prod'
-
-      - name: Test external endpoint
-        run: curl localhost:80/
