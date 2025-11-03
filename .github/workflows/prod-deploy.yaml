@@ -1,4 +1,4 @@
-name: CI with Minikube
+name: Deploy to the Minikube prod environment
 
 permissions:
   contents: read
